@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的学校 - Interactive Mandarin Learning</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+            background-color: #fef08a; /* Bright, playful warm background */
+        }
+        .hanzi-text {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .vocab-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .vocab-card:hover {
+            transform: translateY(-4px);
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fef3c7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 pb-12 flex flex-col items-center">
+
+    <!-- Header Section -->
+    <header class="w-full max-w-4xl mt-4 px-4 text-center">
+        <div class="bg-amber-300 border-4 border-amber-500 rounded-3xl p-6 shadow-lg relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-amber-200/50 text-9xl font-black select-none pointer-events-none">学</div>
+            <h1 class="text-5xl sm:text-6xl font-extrabold text-amber-950 hanzi-text tracking-wide mb-1">
+                我的学校
+            </h1>
+            <p class="text-2xl font-bold text-amber-800 tracking-wider">wǒ de xué xiào</p>
+            <p class="text-xl font-bold text-amber-900 mt-1 uppercase tracking-widest">My School</p>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="w-full max-w-4xl px-4 mt-6">
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+            <button onclick="switchTab('school-vocab')" id="tab-school-vocab" class="nav-btn bg-sky-300 hover:bg-sky-400 text-sky-950 font-bold px-4 py-3 rounded-2xl border-4 border-sky-500 text-lg sm:text-xl shadow transition">
+                🏫 School Vocab
+            </button>
+            <button onclick="switchTab('class-vocab')" id="tab-class-vocab" class="nav-btn bg-emerald-200 hover:bg-emerald-300 text-emerald-950 font-bold px-4 py-3 rounded-2xl border-4 border-emerald-400 text-lg sm:text-xl shadow transition">
+                🛋️ My Class Vocab
+            </button>
+            <button onclick="switchTab('sentences')" id="tab-sentences" class="nav-btn bg-purple-200 hover:bg-purple-300 text-purple-950 font-bold px-4 py-3 rounded-2xl border-4 border-purple-400 text-lg sm:text-xl shadow transition">
+                💬 Sentence
+            </button>
+            <button onclick="switchTab('dialog')" id="tab-dialog" class="nav-btn bg-rose-200 hover:bg-rose-300 text-rose-950 font-bold px-4 py-3 rounded-2xl border-4 border-rose-400 text-lg sm:text-xl shadow transition">
+                🗣️ Dialog
+            </button>
+            <button onclick="switchTab('builder')" id="tab-builder" class="nav-btn bg-orange-200 hover:bg-orange-300 text-orange-950 font-bold px-4 py-3 rounded-2xl border-4 border-orange-400 text-lg sm:text-xl shadow transition">
+                🧩 Sentence Game
+            </button>
+            <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-btn bg-yellow-300 hover:bg-yellow-400 text-yellow-950 font-bold px-5 py-3 rounded-2xl border-4 border-yellow-500 text-lg sm:text-xl shadow transition">
+                📝 Quiz (30 Qs)
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="w-full max-w-4xl px-4 mt-6">
+
+        <!-- 1. School Vocab Page -->
+        <section id="page-school-vocab" class="tab-content block">
+            <div class="bg-sky-100 border-4 border-sky-400 rounded-3xl p-6 shadow-md mb-6">
+                <h2 class="text-3xl font-extrabold text-sky-900 mb-2 flex items-center gap-2">
+                    <span>🏫</span> School Vocabulary
+                </h2>
+                <p class="text-slate-700 font-semibold text-lg">Click the speaker button on any card to listen to the native pronunciation!</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="school-cards-grid">
+                <!-- Cards will be populated dynamically -->
+            </div>
+        </section>
+
+        <!-- 2. My Class Vocab Page -->
+        <section id="page-class-vocab" class="tab-content hidden">
+            <div class="bg-emerald-100 border-4 border-emerald-400 rounded-3xl p-6 shadow-md mb-6">
+                <h2 class="text-3xl font-extrabold text-emerald-900 mb-2 flex items-center gap-2">
+                    <span>🛋️</span> My Class Vocabulary
+                </h2>
+                <p class="text-slate-700 font-semibold text-lg">Learn classroom objects and practice speaking!</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="class-cards-grid">
+                <!-- Cards will be populated dynamically -->
+            </div>
+        </section>
+
+        <!-- 3. Sentence Page -->
+        <section id="page-sentences" class="tab-content hidden">
+            <div class="bg-purple-100 border-4 border-purple-400 rounded-3xl p-6 shadow-md mb-6">
+                <h2 class="text-3xl font-extrabold text-purple-900 mb-2">💬 Key Sentence Pattern</h2>
+                <p class="text-slate-700 font-semibold text-lg">Learn how to describe what is inside our classroom!</p>
+            </div>
+
+            <div class="bg-purple-50 border-4 border-purple-300 rounded-3xl p-6 sm:p-8 shadow-md text-center">
+                <div class="inline-block bg-purple-200 border-2 border-purple-400 rounded-2xl p-4 mb-6">
+                    <svg class="w-32 h-24 mx-auto mb-2 text-purple-700" viewBox="0 0 100 80" fill="currentColor">
+                        <rect x="5" y="5" width="90" height="55" rx="5" fill="#1e293b"/>
+                        <rect x="10" y="10" width="80" height="45" rx="3" fill="#0f172a"/>
+                        <line x1="15" y1="20" x2="40" y2="20" stroke="#f8fafc" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="15" y1="30" x2="60" y2="30" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M50 60 L35 75 M50 60 L65 75" stroke="#475569" stroke-width="4"/>
+                    </svg>
+                    <p class="text-sm font-bold text-purple-800">Whiteboard in Classroom</p>
+                </div>
+
+                <!-- Word Breakdown Stack -->
+                <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 my-6">
+                    <!-- 我 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">我</span>
+                        <span class="text-lg font-bold text-purple-600">wǒ</span>
+                    </div>
+                    <!-- 们 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">们</span>
+                        <span class="text-lg font-bold text-purple-600">men</span>
+                    </div>
+                    <!-- 教 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">教</span>
+                        <span class="text-lg font-bold text-purple-600">jiào</span>
+                    </div>
+                    <!-- 室 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">室</span>
+                        <span class="text-lg font-bold text-purple-600">shì</span>
+                    </div>
+                    <!-- 有 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">有</span>
+                        <span class="text-lg font-bold text-purple-600">yǒu</span>
+                    </div>
+                    <!-- 一 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">一</span>
+                        <span class="text-lg font-bold text-purple-600">yī</span>
+                    </div>
+                    <!-- 个 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">个</span>
+                        <span class="text-lg font-bold text-purple-600">gè</span>
+                    </div>
+                    <!-- 白 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">白</span>
+                        <span class="text-lg font-bold text-purple-600">bái</span>
+                    </div>
+                    <!-- 板 -->
+                    <div class="flex flex-col items-center bg-white border-2 border-purple-300 rounded-xl px-3 py-2">
+                        <span class="text-4xl font-extrabold text-slate-800 hanzi-text">板</span>
+                        <span class="text-lg font-bold text-purple-600">bǎn</span>
+                    </div>
+                </div>
+
+                <!-- Full Sentence & English -->
+                <div class="mt-4">
+                    <p class="text-2xl font-extrabold text-purple-900 mb-1">我们教室有一个白板。</p>
+                    <p class="text-xl font-bold text-slate-700">wǒ men jiào shì yǒu yī gè bái bǎn.</p>
+                    <p class="text-2xl font-extrabold text-purple-700 mt-2">"There is a whiteboard in our classroom."</p>
+                </div>
+
+                <button onclick="playMandarin('我们教室有一个白板')" class="mt-6 bg-purple-500 hover:bg-purple-600 active:scale-95 text-white font-bold px-6 py-3 rounded-2xl border-4 border-purple-700 text-xl shadow flex items-center gap-2 mx-auto transition">
+                    🔊 Listen to Sentence
+                </button>
+            </div>
+        </section>
+
+        <!-- 4. Dialog Page -->
+        <section id="page-dialog" class="tab-content hidden">
+            <div class="bg-rose-100 border-4 border-rose-400 rounded-3xl p-6 shadow-md mb-6">
+                <h2 class="text-3xl font-extrabold text-rose-900 mb-2">🗣️ Classroom Dialogues</h2>
+                <p class="text-slate-700 font-semibold text-lg">Practice asking and answering questions in Chinese!</p>
+            </div>
+
+            <!-- Dialogue 1 -->
+            <div class="bg-rose-50 border-4 border-rose-300 rounded-3xl p-6 shadow-md mb-6">
+                <div class="flex items-center gap-2 mb-4 border-b-2 border-rose-200 pb-2">
+                    <span class="bg-rose-500 text-white font-bold px-3 py-1 rounded-xl text-lg">Dialogue 1</span>
+                    <span class="text-rose-800 font-bold">Asking about items nearby</span>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-400 border-2 border-blue-600 flex items-center justify-center text-2xl flex-shrink-0">👦</div>
+                        <div class="bg-white border-2 border-rose-300 rounded-2xl p-4 flex-1 shadow-sm">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">这</span>
+                                    <span class="text-xs text-rose-600">zhè</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">是</span>
+                                    <span class="text-xs text-rose-600">shì</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">什</span>
+                                    <span class="text-xs text-rose-600">shén</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">么</span>
+                                    <span class="text-xs text-rose-600">me</span>
+                                </div>
+                                <span class="text-2xl font-bold">？</span>
+                            </div>
+                            <p class="text-lg font-bold text-rose-700">What is this?</p>
+                            <button onclick="playMandarin('这是什么')" class="mt-2 text-sm bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold px-3 py-1 rounded-xl border border-rose-400 transition">🔊 Speak</button>
+                        </div>
+                    </div>
+
+                    <!-- A1 -->
+                    <div class="flex items-start gap-4 flex-row-reverse">
+                        <div class="w-12 h-12 rounded-full bg-pink-400 border-2 border-pink-600 flex items-center justify-center text-2xl flex-shrink-0">👧</div>
+                        <div class="bg-white border-2 border-rose-300 rounded-2xl p-4 flex-1 shadow-sm text-right">
+                            <div class="flex items-center justify-end gap-2 mb-2">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">这</span>
+                                    <span class="text-xs text-rose-600">zhè</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">是</span>
+                                    <span class="text-xs text-rose-600">shì</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">白</span>
+                                    <span class="text-xs text-rose-600">bái</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">板</span>
+                                    <span class="text-xs text-rose-600">bǎn</span>
+                                </div>
+                                <span class="text-2xl font-bold">。</span>
+                            </div>
+                            <p class="text-lg font-bold text-rose-700">This is a whiteboard.</p>
+                            <button onclick="playMandarin('这是白板')" class="mt-2 text-sm bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold px-3 py-1 rounded-xl border border-rose-400 transition">🔊 Speak</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dialogue 2 -->
+            <div class="bg-rose-50 border-4 border-rose-300 rounded-3xl p-6 shadow-md">
+                <div class="flex items-center gap-2 mb-4 border-b-2 border-rose-200 pb-2">
+                    <span class="bg-rose-500 text-white font-bold px-3 py-1 rounded-xl text-lg">Dialogue 2</span>
+                    <span class="text-rose-800 font-bold">Asking about items further away</span>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q2 -->
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-400 border-2 border-blue-600 flex items-center justify-center text-2xl flex-shrink-0">👦</div>
+                        <div class="bg-white border-2 border-rose-300 rounded-2xl p-4 flex-1 shadow-sm">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">那</span>
+                                    <span class="text-xs text-rose-600">nà</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">是</span>
+                                    <span class="text-xs text-rose-600">shì</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">什</span>
+                                    <span class="text-xs text-rose-600">shén</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">么</span>
+                                    <span class="text-xs text-rose-600">me</span>
+                                </div>
+                                <span class="text-2xl font-bold">？</span>
+                            </div>
+                            <p class="text-lg font-bold text-rose-700">What is that?</p>
+                            <button onclick="playMandarin('那是什么')" class="mt-2 text-sm bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold px-3 py-1 rounded-xl border border-rose-400 transition">🔊 Speak</button>
+                        </div>
+                    </div>
+
+                    <!-- A2 -->
+                    <div class="flex items-start gap-4 flex-row-reverse">
+                        <div class="w-12 h-12 rounded-full bg-pink-400 border-2 border-pink-600 flex items-center justify-center text-2xl flex-shrink-0">👧</div>
+                        <div class="bg-white border-2 border-rose-300 rounded-2xl p-4 flex-1 shadow-sm text-right">
+                            <div class="flex items-center justify-end gap-2 mb-2">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">那</span>
+                                    <span class="text-xs text-rose-600">nà</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">是</span>
+                                    <span class="text-xs text-rose-600">shì</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">桌</span>
+                                    <span class="text-xs text-rose-600">zhuō</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-2xl font-bold hanzi-text">子</span>
+                                    <span class="text-xs text-rose-600">zi</span>
+                                </div>
+                                <span class="text-2xl font-bold">。</span>
+                            </div>
+                            <p class="text-lg font-bold text-rose-700">That is a table.</p>
+                            <button onclick="playMandarin('那是桌子')" class="mt-2 text-sm bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold px-3 py-1 rounded-xl border border-rose-400 transition">🔊 Speak</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Sentence Builder Game -->
+        <section id="page-builder" class="tab-content hidden">
+            <div class="bg-orange-100 border-4 border-orange-400 rounded-3xl p-6 shadow-md mb-6">
+                <h2 class="text-3xl font-extrabold text-orange-900 mb-2">🧩 Build Sentence Game</h2>
+                <p class="text-slate-700 font-semibold text-lg">Click the word tiles below in the correct order to construct the Chinese sentence!</p>
+            </div>
+
+            <div class="bg-orange-50 border-4 border-orange-300 rounded-3xl p-6 shadow-md">
+                <!-- Target Prompt -->
+                <div class="text-center mb-6">
+                    <span id="builder-target-label" class="inline-block bg-orange-200 text-orange-950 border-2 border-orange-400 font-bold px-4 py-2 rounded-2xl text-xl mb-2">
+                        Target Goal: "There is a whiteboard in our classroom."
+                    </span>
+                    <div class="flex justify-center gap-3 mt-3">
+                        <button onclick="playSentenceHint()" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold px-4 py-2 rounded-xl border-2 border-amber-600 text-lg shadow transition flex items-center gap-1">
+                            🔊 Audio Hint
+                        </button>
+                        <button onclick="resetSentenceBuilder()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-xl border-2 border-slate-400 text-lg shadow transition">
+                            🔄 Reset Blocks
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dropzone Area -->
+                <div class="bg-white border-4 border-dashed border-orange-300 rounded-2xl p-4 min-h-[100px] flex flex-wrap items-center justify-center gap-2 mb-6 shadow-inner" id="builder-slot">
+                    <span class="text-slate-400 font-bold text-lg select-none" id="builder-placeholder">Tap tiles below to build the sentence here...</span>
+                </div>
+
+                <!-- Tile Selector -->
+                <div class="text-center mb-3 font-bold text-orange-900 text-lg">Available Word Tiles:</div>
+                <div class="flex flex-wrap justify-center gap-3" id="builder-tiles-container">
+                    <!-- Tiles injected here -->
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="builder-feedback" class="mt-6 text-center text-2xl font-bold min-h-[40px]"></div>
+            </div>
+        </section>
+
+        <!-- 6. Quiz Page -->
+        <section id="page-quiz" class="tab-content hidden">
+            <!-- Quiz Info Banner -->
+            <div class="bg-amber-200 border-4 border-amber-500 rounded-3xl p-5 shadow-md mb-6">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-amber-950">📝 Mandarin Quiz Challenge</h2>
+                        <p class="text-amber-900 font-bold text-base mt-1">
+                            💡 Chinese Vocab Note: <span class="bg-emerald-300 text-emerald-950 px-2 py-0.5 rounded border border-emerald-500 font-extrabold">正确 (zhèngquè) = Correct</span> | <span class="bg-rose-300 text-rose-950 px-2 py-0.5 rounded border border-rose-500 font-extrabold">错误 (cuòwù) = Wrong</span>
+                        </p>
+                    </div>
+                    <button onclick="restartQuiz()" class="bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-extrabold px-4 py-2 rounded-2xl border-4 border-yellow-600 shadow transition text-lg flex items-center gap-1">
+                        🔄 Replay / Reset Quiz
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Main Container -->
+            <div id="quiz-box" class="bg-amber-100 border-4 border-amber-400 rounded-3xl p-6 sm:p-8 shadow-md">
+                <!-- Status Header -->
+                <div class="flex justify-between items-center mb-6 bg-amber-200 border-2 border-amber-400 px-4 py-3 rounded-2xl">
+                    <div class="text-xl font-bold text-amber-950">
+                        Question <span id="quiz-current-num" class="text-2xl text-amber-900 font-extrabold">1</span> / <span id="quiz-total-num">30</span>
+                    </div>
+                    <div class="text-xl font-bold text-amber-950">
+                        Score: <span id="quiz-score" class="text-3xl text-emerald-700 font-extrabold">0</span>
+                    </div>
+                </div>
+
+                <!-- Question Prompt Card -->
+                <div class="bg-yellow-200 border-4 border-yellow-400 rounded-2xl p-6 text-center mb-6 shadow-sm">
+                    <p id="quiz-question-type" class="text-sm font-bold text-amber-800 uppercase tracking-wider mb-2">Identify the correct answer</p>
+                    <div id="quiz-question-body" class="text-3xl sm:text-4xl font-extrabold text-slate-900 hanzi-text">
+                        <!-- Question content rendered here -->
+                    </div>
+                </div>
+
+                <!-- Options List (Bright colors, solid fill & border, labeled 一二三四) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="quiz-options-grid">
+                    <!-- 4 options injected here -->
+                </div>
+
+                <!-- Answer Feedback Box -->
+                <div id="quiz-feedback-banner" class="hidden mt-6 p-4 rounded-2xl border-4 text-center font-bold text-xl"></div>
+
+                <!-- Next Button -->
+                <div class="mt-6 text-right">
+                    <button id="quiz-next-btn" onclick="nextQuestion()" class="hidden bg-sky-400 hover:bg-sky-500 text-sky-950 font-extrabold text-xl px-8 py-3 rounded-2xl border-4 border-sky-600 shadow-md transition">
+                        Next Question ➔
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Summary Container -->
+            <div id="quiz-summary-box" class="hidden bg-yellow-100 border-4 border-yellow-400 rounded-3xl p-8 text-center shadow-lg">
+                <h3 class="text-4xl font-extrabold text-yellow-950 mb-2">🎉 Quiz Completed!</h3>
+                <p class="text-xl font-bold text-slate-700 mb-6">Great job practicing your Chinese vocabulary!</p>
+                <div class="bg-amber-200 border-4 border-amber-400 rounded-2xl p-6 max-w-sm mx-auto mb-6">
+                    <p class="text-lg font-bold text-amber-900">Your Final Score:</p>
+                    <p id="final-score-text" class="text-6xl font-black text-emerald-700 my-2">0 / 30</p>
+                    <p id="final-rating-text" class="text-xl font-bold text-amber-950">Awesome effort!</p>
+                </div>
+                <button onclick="restartQuiz()" class="bg-emerald-400 hover:bg-emerald-500 text-emerald-950 font-extrabold text-2xl px-8 py-4 rounded-2xl border-4 border-emerald-600 shadow-lg transition">
+                    🔄 Try Quiz Again
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        /* ==========================================================
+           AUDIO SYSTEM (Multi-Tier CDN Fallback + Touch Unlocker)
+           ========================================================== */
+        let audioUnlocked = false;
+
+        function unlockAudio() {
+            if (audioUnlocked) return;
+            try {
+                const dummyAudio = new Audio();
+                dummyAudio.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==";
+                dummyAudio.play().catch(() => {});
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.getVoices();
+                }
+            } catch (e) {}
+            audioUnlocked = true;
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
+        }
+
+        document.addEventListener('touchstart', unlockAudio, { once: true });
+        document.addEventListener('click', unlockAudio, { once: true });
+
+        // Multi-Tier Audio Player
+        async function playMandarin(text) {
+            unlockAudio();
+
+            // Tier 1: Youdao CDN
+            try {
+                const cdnUrl = `https://dict.youdao.com/dictvoice?le=zh&audio=${encodeURIComponent(text)}`;
+                const audio = new Audio(cdnUrl);
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    await playPromise;
+                    return;
+                }
+            } catch (err) {
+                console.warn("CDN audio fallback triggered:", err);
+            }
+
+            // Tier 2: Web Speech API (zh-CN)
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.85; // kid friendly pace
+
+                const voices = window.speechSynthesis.getVoices();
+                const zhVoice = voices.find(v => v.lang.includes('zh') || v.lang.includes('CN'));
+                if (zhVoice) utterance.voice = zhVoice;
+
+                window.speechSynthesis.speak(utterance);
+                return;
+            }
+
+            // Tier 3: Tone Fallback
+            playToneSound(523.25, 0.2); // C5 tone
+        }
+
+        function playToneSound(freq, duration) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        /* ==========================================================
+           VOCABULARY DATA
+           ========================================================== */
+        const schoolVocab = [
+            {
+                id: 'school',
+                english: 'School',
+                audioText: '学校',
+                chars: [
+                    { hanzi: '学', pinyin: 'xué' },
+                    { hanzi: '校', pinyin: 'xiào' }
+                ],
+                border: 'border-sky-500',
+                bg: 'bg-sky-100',
+                headerBg: 'bg-sky-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="20" y="35" width="60" height="50" fill="#38bdf8" rx="4" stroke="#0284c7" stroke-width="3"/>
+                    <polygon points="50,10 15,35 85,35" fill="#f43f5e" stroke="#be123c" stroke-width="3"/>
+                    <rect x="42" y="55" width="16" height="30" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+                    <circle cx="50" cy="27" r="5" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+                    <rect x="28" y="45" width="10" height="12" fill="#fff" stroke="#0284c7" stroke-width="2"/>
+                    <rect x="62" y="45" width="10" height="12" fill="#fff" stroke="#0284c7" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'classroom',
+                english: 'Classroom',
+                audioText: '教室',
+                chars: [
+                    { hanzi: '教', pinyin: 'jiào' },
+                    { hanzi: '室', pinyin: 'shì' }
+                ],
+                border: 'border-blue-500',
+                bg: 'bg-blue-100',
+                headerBg: 'bg-blue-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="15" y="20" width="70" height="60" fill="#60a5fa" rx="6" stroke="#1d4ed8" stroke-width="3"/>
+                    <rect x="25" y="30" width="50" height="30" fill="#1e293b" rx="3"/>
+                    <rect x="35" y="65" width="30" height="15" fill="#d97706" rx="2"/>
+                    <line x1="30" y1="35" x2="55" y2="35" stroke="#f8fafc" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'textbook',
+                english: 'Textbook',
+                audioText: '课本',
+                chars: [
+                    { hanzi: '课', pinyin: 'kè' },
+                    { hanzi: '本', pinyin: 'běn' }
+                ],
+                border: 'border-emerald-500',
+                bg: 'bg-emerald-100',
+                headerBg: 'bg-emerald-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <path d="M20 20 L75 20 C80 20, 80 80, 75 80 L20 80 Z" fill="#10b981" stroke="#047857" stroke-width="3"/>
+                    <path d="M20 20 L25 15 L80 15 L75 20 Z" fill="#34d399"/>
+                    <rect x="35" y="35" width="30" height="25" fill="#fef08a" rx="3" stroke="#ca8a04" stroke-width="2"/>
+                    <line x1="40" y1="45" x2="60" y2="45" stroke="#ca8a04" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'workbook',
+                english: 'Workbook',
+                audioText: '练习册',
+                chars: [
+                    { hanzi: '练', pinyin: 'liàn' },
+                    { hanzi: '习', pinyin: 'xí' },
+                    { hanzi: '册', pinyin: 'cè' }
+                ],
+                border: 'border-teal-500',
+                bg: 'bg-teal-100',
+                headerBg: 'bg-teal-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="25" y="15" width="55" height="70" fill="#2dd4bf" rx="4" stroke="#0f766e" stroke-width="3"/>
+                    <line x1="30" y1="20" x2="30" y2="80" stroke="#0f766e" stroke-width="4" stroke-dasharray="3 3"/>
+                    <path d="M40 35 L50 45 L70 25" fill="none" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="40" y1="55" x2="70" y2="55" stroke="#fff" stroke-width="3"/>
+                    <line x1="40" y1="65" x2="65" y2="65" stroke="#fff" stroke-width="3"/>
+                </svg>`
+            }
+        ];
+
+        const classVocab = [
+            {
+                id: 'tv',
+                english: 'TV',
+                audioText: '电视机',
+                chars: [
+                    { hanzi: '电', pinyin: 'diàn' },
+                    { hanzi: '视', pinyin: 'shì' },
+                    { hanzi: '机', pinyin: 'jī' }
+                ],
+                border: 'border-purple-500',
+                bg: 'bg-purple-100',
+                headerBg: 'bg-purple-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="15" y="20" width="70" height="48" rx="5" fill="#334155" stroke="#0f172a" stroke-width="3"/>
+                    <rect x="20" y="25" width="60" height="38" rx="2" fill="#38bdf8"/>
+                    <polygon points="30,55 50,30 70,55" fill="#facc15"/>
+                    <path d="M40 68 L60 68 M50 68 L50 78 M35 78 L65 78" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/>
+                </svg>`
+            },
+            {
+                id: 'whiteboard',
+                english: 'Whiteboard',
+                audioText: '白板',
+                chars: [
+                    { hanzi: '白', pinyin: 'bái' },
+                    { hanzi: '板', pinyin: 'bǎn' }
+                ],
+                border: 'border-indigo-500',
+                bg: 'bg-indigo-100',
+                headerBg: 'bg-indigo-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="10" y="15" width="80" height="50" rx="4" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+                    <line x1="20" y1="30" x2="50" y2="30" stroke="#f43f5e" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="20" y1="42" x2="70" y2="42" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M30 65 L20 85 M70 65 L80 85" stroke="#475569" stroke-width="4"/>
+                </svg>`
+            },
+            {
+                id: 'desk',
+                english: 'Desk / Table',
+                audioText: '桌子',
+                chars: [
+                    { hanzi: '桌', pinyin: 'zhuō' },
+                    { hanzi: '子', pinyin: 'zi' }
+                ],
+                border: 'border-amber-600',
+                bg: 'bg-amber-100',
+                headerBg: 'bg-amber-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="15" y="30" width="70" height="15" fill="#d97706" rx="2" stroke="#78350f" stroke-width="2"/>
+                    <rect x="22" y="45" width="10" height="35" fill="#b45309" stroke="#78350f" stroke-width="2"/>
+                    <rect x="68" y="45" width="10" height="35" fill="#b45309" stroke="#78350f" stroke-width="2"/>
+                    <line x1="25" y1="37" x2="75" y2="37" stroke="#fef08a" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'bookshelf',
+                english: 'Bookshelf',
+                audioText: '书架',
+                chars: [
+                    { hanzi: '书', pinyin: 'shū' },
+                    { hanzi: '架', pinyin: 'jià' }
+                ],
+                border: 'border-rose-500',
+                bg: 'bg-rose-100',
+                headerBg: 'bg-rose-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="20" y="15" width="60" height="70" fill="#f43f5e" rx="4" stroke="#9f1239" stroke-width="3"/>
+                    <line x1="20" y1="40" x2="80" y2="40" stroke="#9f1239" stroke-width="3"/>
+                    <line x1="20" y1="65" x2="80" y2="65" stroke="#9f1239" stroke-width="3"/>
+                    <!-- Books -->
+                    <rect x="25" y="22" width="8" height="18" fill="#38bdf8"/>
+                    <rect x="35" y="20" width="10" height="20" fill="#facc15"/>
+                    <rect x="47" y="24" width="7" height="16" fill="#4ade80"/>
+                    <rect x="25" y="47" width="12" height="18" fill="#a855f7"/>
+                    <rect x="39" y="45" width="9" height="20" fill="#38bdf8"/>
+                </svg>`
+            },
+            {
+                id: 'computer',
+                english: 'Computer',
+                audioText: '电脑',
+                chars: [
+                    { hanzi: '电', pinyin: 'diàn' },
+                    { hanzi: '脑', pinyin: 'nǎo' }
+                ],
+                border: 'border-cyan-500',
+                bg: 'bg-cyan-100',
+                headerBg: 'bg-cyan-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="20" y="15" width="60" height="42" rx="4" fill="#06b6d4" stroke="#0e7490" stroke-width="3"/>
+                    <rect x="25" y="20" width="50" height="32" rx="2" fill="#ecfeff"/>
+                    <path d="M45 57 L55 57 M50 57 L50 68 M30 68 L70 68" stroke="#0e7490" stroke-width="4" stroke-linecap="round"/>
+                    <rect x="20" y="72" width="60" height="10" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'chair',
+                english: 'Chair',
+                audioText: '椅子',
+                chars: [
+                    { hanzi: '椅', pinyin: 'yǐ' },
+                    { hanzi: '子', pinyin: 'zi' }
+                ],
+                border: 'border-orange-500',
+                bg: 'bg-orange-100',
+                headerBg: 'bg-orange-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <rect x="30" y="15" width="40" height="30" fill="#fb923c" rx="3" stroke="#c2410c" stroke-width="3"/>
+                    <rect x="25" y="45" width="50" height="10" fill="#f97316" rx="2" stroke="#c2410c" stroke-width="3"/>
+                    <line x1="30" y1="55" x2="30" y2="85" stroke="#c2410c" stroke-width="4"/>
+                    <line x1="70" y1="55" x2="70" y2="85" stroke="#c2410c" stroke-width="4"/>
+                </svg>`
+            }
+        ];
+
+        // Render Vocabulary Cards
+        function renderCards(data, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `vocab-card ${item.bg} border-4 ${item.border} rounded-3xl p-5 text-center shadow-md flex flex-col justify-between items-center`;
+
+                // Build Character - Pinyin vertically aligned stack
+                let charStackHtml = '<div class="flex justify-center items-center gap-3 my-3">';
+                item.chars.forEach(c => {
+                    charStackHtml += `
+                        <div class="flex flex-col items-center">
+                            <span class="text-5xl font-black text-slate-800 hanzi-text">${c.hanzi}</span>
+                            <span class="text-xl font-extrabold text-amber-700 mt-1">${c.pinyin}</span>
+                        </div>
+                    `;
+                });
+                charStackHtml += '</div>';
+
+                card.innerHTML = `
+                    <div class="w-full">
+                        <div class="bg-white/80 rounded-2xl p-3 border-2 ${item.border} mb-3 shadow-inner">
+                            ${item.svg}
+                        </div>
+                        ${charStackHtml}
+                        <div class="text-2xl font-black text-slate-800 mb-4">${item.english}</div>
+                    </div>
+                    <button onclick="playMandarin('${item.audioText}')" class="w-full bg-amber-400 hover:bg-amber-500 active:scale-95 text-amber-950 font-bold py-3 px-4 rounded-2xl border-3 border-amber-600 text-lg shadow transition flex items-center justify-center gap-2">
+                        🔊 Listen & Practice
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Navigation Handler
+        function switchTab(tabKey) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`page-${tabKey}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-amber-500', 'scale-105');
+            });
+            const activeBtn = document.getElementById(`tab-${tabKey}`);
+            if (activeBtn) activeBtn.classList.add('ring-4', 'ring-amber-500', 'scale-105');
+        }
+
+        /* ==========================================================
+           SENTENCE BUILDER MINI-GAME
+           ========================================================== */
+        const targetSentence = ["我们", "教室", "有", "一个", "白板"];
+        const distractorWords = ["桌子", "电脑", "这是"];
+        let currentBuildWords = [];
+
+        function initSentenceBuilder() {
+            currentBuildWords = [];
+            const tilesContainer = document.getElementById('builder-tiles-container');
+            const slot = document.getElementById('builder-slot');
+            const feedback = document.getElementById('builder-feedback');
+
+            feedback.innerHTML = '';
+            slot.innerHTML = '<span class="text-slate-400 font-bold text-lg select-none" id="builder-placeholder">Tap tiles below to build the sentence here...</span>';
+            tilesContainer.innerHTML = '';
+
+            // Shuffle target + distractors
+            const allTiles = [...targetSentence, ...distractorWords].sort(() => Math.random() - 0.5);
+
+            allTiles.forEach((word, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'bg-orange-300 hover:bg-orange-400 border-3 border-orange-500 text-orange-950 font-extrabold text-2xl px-4 py-3 rounded-2xl shadow transition active:scale-95 hanzi-text';
+                btn.innerText = word;
+                btn.id = `tile-btn-${idx}`;
+                btn.onclick = () => selectTile(word, btn.id);
+                tilesContainer.appendChild(btn);
+            });
+        }
+
+        function selectTile(word, btnId) {
+            const btn = document.getElementById(btnId);
+            if (!btn || btn.disabled) return;
+
+            btn.disabled = true;
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
+
+            currentBuildWords.push({ word, btnId });
+            renderBuildSlots();
+            checkSentenceComplete();
+        }
+
+        function renderBuildSlots() {
+            const slot = document.getElementById('builder-slot');
+            slot.innerHTML = '';
+
+            if (currentBuildWords.length === 0) {
+                slot.innerHTML = '<span class="text-slate-400 font-bold text-lg select-none">Tap tiles below to build the sentence here...</span>';
+                return;
+            }
+
+            currentBuildWords.forEach((item, index) => {
+                const span = document.createElement('span');
+                span.className = 'bg-amber-300 border-2 border-amber-600 text-amber-950 font-extrabold text-2xl px-3 py-2 rounded-xl cursor-pointer hover:bg-rose-300 transition hanzi-text';
+                span.innerText = item.word;
+                span.title = 'Click to remove';
+                span.onclick = () => removeBuildTile(index);
+                slot.appendChild(span);
+            });
+        }
+
+        function removeBuildTile(index) {
+            const removed = currentBuildWords.splice(index, 1)[0];
+            const originalBtn = document.getElementById(removed.btnId);
+            if (originalBtn) {
+                originalBtn.disabled = false;
+                originalBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+            }
+            renderBuildSlots();
+            document.getElementById('builder-feedback').innerHTML = '';
+        }
+
+        function checkSentenceComplete() {
+            if (currentBuildWords.length === targetSentence.length) {
+                const userSentence = currentBuildWords.map(i => i.word).join('');
+                const targetStr = targetSentence.join('');
+
+                const feedback = document.getElementById('builder-feedback');
+                if (userSentence === targetStr) {
+                    feedback.innerHTML = '<span class="text-emerald-700 bg-emerald-200 border-2 border-emerald-500 px-4 py-2 rounded-2xl inline-block">🎉 正确 (zhèngquè)! Amazing job!</span>';
+                    playMandarin('正确');
+                    setTimeout(() => playMandarin('我们教室有一个白板'), 1000);
+                } else {
+                    feedback.innerHTML = '<span class="text-rose-700 bg-rose-200 border-2 border-rose-500 px-4 py-2 rounded-2xl inline-block">❌ 错误 (cuòwù)! Try again!</span>';
+                    playMandarin('错误');
+                }
+            }
+        }
+
+        function playSentenceHint() {
+            playMandarin('我们教室有一个白板');
+        }
+
+        function resetSentenceBuilder() {
+            initSentenceBuilder();
+        }
+
+        /* ==========================================================
+           30 QUIZ QUESTIONS DATA
+           ========================================================== */
+        const quizQuestions = [
+            {
+                type: 'Identify Hanzi from Picture',
+                question: 'What is this item in Chinese?',
+                svg: `<svg class="w-20 h-20 mx-auto" viewBox="0 0 100 100"><rect x="10" y="15" width="80" height="50" rx="4" fill="#ffffff" stroke="#6366f1" stroke-width="4"/><line x1="20" y1="30" x2="50" y2="30" stroke="#f43f5e" stroke-width="3"/></svg>`,
+                options: ['白板', '桌子', '电脑', '椅子'],
+                answer: 0
+            },
+            {
+                type: 'Pinyin Match',
+                question: 'What is the Pinyin for "学校"?',
+                options: ['jiào shì', 'xué xiào', 'kè běn', 'liàn xí cè'],
+                answer: 1
+            },
+            {
+                type: 'English Translation',
+                question: 'What does "电脑" mean in English?',
+                options: ['TV', 'Bookshelf', 'Computer', 'Chair'],
+                answer: 2
+            },
+            {
+                type: 'Pinyin Match',
+                question: 'What is the Pinyin for "书架"?',
+                options: ['shū jià', 'zhuō zi', 'yǐ zi', 'diàn shì jī'],
+                answer: 0
+            },
+            {
+                type: 'Hanzi Match',
+                question: 'Which Hanzi matches the Pinyin "zhuō zi"?',
+                options: ['椅子', '白板', '桌子', '教室'],
+                answer: 2
+            },
+            {
+                type: 'English Translation',
+                question: 'What does "课本" mean?',
+                options: ['Workbook', 'Textbook', 'Classroom', 'School'],
+                answer: 1
+            },
+            {
+                type: 'Identify Hanzi from Picture',
+                question: 'What is this item in Chinese?',
+                svg: `<svg class="w-20 h-20 mx-auto" viewBox="0 0 100 100"><rect x="30" y="15" width="40" height="30" fill="#fb923c" rx="3"/><rect x="25" y="45" width="50" height="10" fill="#f97316"/><line x1="30" y1="55" x2="30" y2="85" stroke="#c2410c" stroke-width="4"/><line x1="70" y1="55" x2="70" y2="85" stroke="#c2410c" stroke-width="4"/></svg>`,
+                options: ['桌子', '椅子', '书架', '电视机'],
+                answer: 1
+            },
+            {
+                type: 'Hanzi Match',
+                question: 'Which word means "Classroom" in Chinese?',
+                options: ['学校', '教室', '练习册', '电脑'],
+                answer: 1
+            },
+            {
+                type: 'Pinyin Match',
+                question: 'What is the Pinyin for "练习册"?',
+                options: ['liàn xí cè', 'kè běn', 'bái bǎn', 'xué xiào'],
+                answer: 0
+            },
+            {
+                type: 'Identify English from Picture',
+                question: 'What is this item in English?',
+                svg: `<svg class="w-20 h-20 mx-auto" viewBox="0 0 100 100"><rect x="15" y="20" width="70" height="48" rx="5" fill="#334155"/><rect x="20" y="25" width="60" height="38" fill="#38bdf8"/></svg>`,
+                options: ['Computer', 'Whiteboard', 'TV', 'Bookshelf'],
+                answer: 2
+            },
+            {
+                type: 'Dialogue Match',
+                question: 'Translate: "这是什么？"',
+                options: ['What is that?', 'What is this?', 'Where is the school?', 'Is this a desk?'],
+                answer: 1
+            },
+            {
+                type: 'Fill in the Blank',
+                question: 'Complete: "这是_____。" (This is a whiteboard)',
+                options: ['桌子', '白板', '椅子', '电脑'],
+                answer: 1
+            },
+            {
+                type: 'Dialogue Match',
+                question: 'Translate: "那是什么？"',
+                options: ['What is this?', 'What is that?', 'Who is that?', 'Where is that?'],
+                answer: 1
+            },
+            {
+                type: 'Fill in the Blank',
+                question: 'Complete: "那是_____。" (That is a table)',
+                options: ['桌子', '书架', '电视机', '练习册'],
+                answer: 0
+            },
+            {
+                type: 'Sentence Meaning',
+                question: 'What does "我们教室有一个白板" mean?',
+                options: [
+                    'Our school has a classroom.',
+                    'There is a computer on the desk.',
+                    'There is a whiteboard in our classroom.',
+                    'This is a small whiteboard.'
+                ],
+                answer: 2
+            },
+            {
+                type: 'Hanzi Match',
+                question: 'Which word matches the Pinyin "diàn nǎo"?',
+                options: ['电视机', '电脑', '练习册', '课本'],
+                answer: 1
+            },
+            {
+                type: 'Pinyin Match',
+                question: 'What is the Pinyin for "白板"?',
+                options: ['bái bǎn', 'shū jià', 'jiào shì', 'yǐ zi'],
+                answer: 0
+            },
+            {
+                type: 'Pinyin Match',
+                question: 'What is the Pinyin for "椅子"?',
+                options: ['zhuō zi', 'yǐ zi', 'diàn nǎo', 'kè běn'],
+                answer: 1
+            },
+            {
+                type: 'Identify Hanzi from Picture',
+                question: 'What is this building in Chinese?',
+                svg: `<svg class="w-20 h-20 mx-auto" viewBox="0 0 100 100"><rect x="20" y="35" width="60" height="50" fill="#38bdf8"/><polygon points="50,10 15,35 85,35" fill="#f43f5e"/></svg>`,
+                options: ['教室', '学校', '白板', '书架'],
+                answer: 1
+            },
+            {
+                type: 'English Translation',
+                question: 'What does "练习册" mean?',
+                options: ['Textbook', 'Storybook', 'Workbook', 'Notebook'],
+                answer: 2
+            },
+            {
+                type: 'Hanzi Match',
+                question: 'Which word means "Bookshelf" in Hanzi?',
+                options: ['书架', '桌子', '椅子', '电视机'],
+                answer: 0
+            },
+            {
+                type: 'Pinyin Match',
+                question: 'What is the Pinyin for "教室"?',
+                options: ['xué xiào', 'jiào shì', 'liàn xí cè', 'diàn shì jī'],
+                answer: 1
+            },
+            {
+                type: 'Sentence Completion',
+                question: 'Complete: "我们教室有____。" (a whiteboard)',
+                options: ['一个白板', '一把椅子', '一台电脑', '一本书'],
+                answer: 0
+            },
+            {
+                type: 'English Translation',
+                question: 'What does "桌子" mean in English?',
+                options: ['Chair', 'Desk / Table', 'Whiteboard', 'Computer'],
+                answer: 1
+            },
+            {
+                type: 'Pinyin Match',
+                question: 'What is the Pinyin for "电视机"?',
+                options: ['diàn nǎo', 'diàn shì jī', 'bái bǎn', 'shū jià'],
+                answer: 1
+            },
+            {
+                type: 'Identify Hanzi from Picture',
+                question: 'What is this in Chinese?',
+                svg: `<svg class="w-20 h-20 mx-auto" viewBox="0 0 100 100"><rect x="20" y="15" width="60" height="42" rx="4" fill="#06b6d4"/><rect x="25" y="20" width="50" height="32" fill="#ecfeff"/></svg>`,
+                options: ['电视机', '电脑', '白板', '课本'],
+                answer: 1
+            },
+            {
+                type: 'Identify Pinyin from Picture',
+                question: 'What is the Pinyin for this item?',
+                svg: `<svg class="w-20 h-20 mx-auto" viewBox="0 0 100 100"><path d="M20 20 L75 20 C80 20, 80 80, 75 80 L20 80 Z" fill="#10b981"/></svg>`,
+                options: ['liàn xí cè', 'kè běn', 'shū jià', 'xué xiào'],
+                answer: 1
+            },
+            {
+                type: 'Phrase Meaning',
+                question: 'Which characters mean "This is..." in Chinese?',
+                options: ['那是', '这是', '什么', '我们'],
+                answer: 1
+            },
+            {
+                type: 'Phrase Meaning',
+                question: 'Which characters mean "That is..." in Chinese?',
+                options: ['这是', '那是', '一个', '教室'],
+                answer: 1
+            },
+            {
+                type: 'Word Translation',
+                question: 'What does "我们" mean in English?',
+                options: ['They / Their', 'You / Your', 'We / Our', 'He / His'],
+                answer: 2
+            }
+        ];
+
+        /* ==========================================================
+           QUIZ ENGINE LOGIC
+           ========================================================== */
+        let currentQuestionIdx = 0;
+        let score = 0;
+        let answered = false;
+
+        const chineseNumbers = ['一', '二', '三', '四'];
+
+        // Colors for quiz options (Bright solid fill & border, NO gradients, NOT too white)
+        const optionColors = [
+            { bg: 'bg-amber-200 hover:bg-amber-300', border: 'border-amber-500', text: 'text-amber-950' },
+            { bg: 'bg-sky-200 hover:bg-sky-300', border: 'border-sky-500', text: 'text-sky-950' },
+            { bg: 'bg-emerald-200 hover:bg-emerald-300', border: 'border-emerald-500', text: 'text-emerald-950' },
+            { bg: 'bg-purple-200 hover:bg-purple-300', border: 'border-purple-500', text: 'text-purple-950' }
+        ];
+
+        function loadQuestion() {
+            answered = false;
+            const q = quizQuestions[currentQuestionIdx];
+
+            document.getElementById('quiz-current-num').innerText = currentQuestionIdx + 1;
+            document.getElementById('quiz-total-num').innerText = quizQuestions.length;
+            document.getElementById('quiz-score').innerText = score;
+
+            document.getElementById('quiz-question-type').innerText = q.type;
+
+            const qBody = document.getElementById('quiz-question-body');
+            qBody.innerHTML = '';
+            if (q.svg) {
+                qBody.innerHTML += `<div class="mb-3">${q.svg}</div>`;
+            }
+            qBody.innerHTML += `<div>${q.question}</div>`;
+
+            const optionsGrid = document.getElementById('quiz-options-grid');
+            optionsGrid.innerHTML = '';
+
+            const feedbackBanner = document.getElementById('quiz-feedback-banner');
+            feedbackBanner.className = 'hidden mt-6 p-4 rounded-2xl border-4 text-center font-bold text-xl';
+            feedbackBanner.innerHTML = '';
+
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+
+            q.options.forEach((opt, idx) => {
+                const color = optionColors[idx % optionColors.length];
+                const btn = document.createElement('button');
+                btn.id = `quiz-opt-${idx}`;
+                btn.className = `w-full text-left p-4 rounded-2xl border-4 ${color.border} ${color.bg} ${color.text} font-extrabold text-xl sm:text-2xl shadow transition flex items-center gap-3 active:scale-98`;
+                btn.onclick = () => handleAnswer(idx);
+
+                btn.innerHTML = `
+                    <span class="w-10 h-10 rounded-xl bg-white/80 border-2 ${color.border} flex items-center justify-center font-black text-amber-950 flex-shrink-0">
+                        ${chineseNumbers[idx]}
+                    </span>
+                    <span class="hanzi-text flex-1">${opt}</span>
+                `;
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selectedIndex) {
+            if (answered) return;
+            answered = true;
+
+            const q = quizQuestions[currentQuestionIdx];
+            const feedbackBanner = document.getElementById('quiz-feedback-banner');
+            const nextBtn = document.getElementById('quiz-next-btn');
+
+            // Disable all option buttons
+            q.options.forEach((_, idx) => {
+                const btn = document.getElementById(`quiz-opt-${idx}`);
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-amber-300', 'hover:bg-sky-300', 'hover:bg-emerald-300', 'hover:bg-purple-300');
+            });
+
+            const selectedBtn = document.getElementById(`quiz-opt-${selectedIndex}`);
+            const correctBtn = document.getElementById(`quiz-opt-${q.answer}`);
+
+            if (selectedIndex === q.answer) {
+                // Correct
+                score++;
+                document.getElementById('quiz-score').innerText = score;
+
+                selectedBtn.className = 'w-full text-left p-4 rounded-2xl border-4 border-emerald-600 bg-emerald-500 text-white font-extrabold text-xl sm:text-2xl shadow flex items-center gap-3';
+
+                feedbackBanner.className = 'mt-6 p-4 rounded-2xl border-4 border-emerald-600 bg-emerald-200 text-emerald-950 font-extrabold text-2xl text-center block';
+                feedbackBanner.innerHTML = '🎉 Correct! 正确 (zhèngquè)';
+
+                playMandarin('正确');
+            } else {
+                // Wrong: selected turns red, correct turns green
+                selectedBtn.className = 'w-full text-left p-4 rounded-2xl border-4 border-rose-600 bg-rose-500 text-white font-extrabold text-xl sm:text-2xl shadow flex items-center gap-3';
+
+                correctBtn.className = 'w-full text-left p-4 rounded-2xl border-4 border-emerald-600 bg-emerald-500 text-white font-extrabold text-xl sm:text-2xl shadow flex items-center gap-3 ring-4 ring-emerald-300';
+
+                feedbackBanner.className = 'mt-6 p-4 rounded-2xl border-4 border-rose-600 bg-rose-200 text-rose-950 font-extrabold text-2xl text-center block';
+                feedbackBanner.innerHTML = `❌ Wrong! 错误 (cuòwù). The correct answer is highlighted in green.`;
+
+                playMandarin('错误');
+            }
+
+            nextBtn.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                showQuizSummary();
+            }
+        }
+
+        function showQuizSummary() {
+            document.getElementById('quiz-box').classList.add('hidden');
+            const summaryBox = document.getElementById('quiz-summary-box');
+            summaryBox.classList.remove('hidden');
+
+            document.getElementById('final-score-text').innerText = `${score} / ${quizQuestions.length}`;
+
+            const ratingText = document.getElementById('final-rating-text');
+            const pct = (score / quizQuestions.length) * 100;
+            if (pct >= 90) {
+                ratingText.innerText = '🌟 Super Mandarin Star! (太棒了!)';
+            } else if (pct >= 70) {
+                ratingText.innerText = '👍 Great job! Keep practicing!';
+            } else {
+                ratingText.innerText = '💪 Good effort! Let\'s review and try again!';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIdx = 0;
+            score = 0;
+            document.getElementById('quiz-summary-box').classList.add('hidden');
+            document.getElementById('quiz-box').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            renderCards(schoolVocab, 'school-cards-grid');
+            renderCards(classVocab, 'class-cards-grid');
+            initSentenceBuilder();
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>

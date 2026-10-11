@@ -324,44 +324,168 @@
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- 5. Sentence Builder Game -->
-        <section id="page-builder" class="tab-content hidden">
-            <div class="bg-orange-100 border-4 border-orange-400 rounded-3xl p-6 shadow-md mb-6">
-                <h2 class="text-3xl font-extrabold text-orange-900 mb-2">🧩 Build Sentence Game</h2>
-                <p class="text-slate-700 font-semibold text-lg">Click the word tiles below in the correct order to construct the Chinese sentence!</p>
-            </div>
-
-            <div class="bg-orange-50 border-4 border-orange-300 rounded-3xl p-6 shadow-md">
-                <!-- Target Prompt -->
-                <div class="text-center mb-6">
-                    <span id="builder-target-label" class="inline-block bg-orange-200 text-orange-950 border-2 border-orange-400 font-bold px-4 py-2 rounded-2xl text-xl mb-2">
-                        Target Goal: "There is a whiteboard in our classroom."
-                    </span>
-                    <div class="flex justify-center gap-3 mt-3">
-                        <button onclick="playSentenceHint()" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold px-4 py-2 rounded-xl border-2 border-amber-600 text-lg shadow transition flex items-center gap-1">
-                            🔊 Audio Hint
-                        </button>
-                        <button onclick="resetSentenceBuilder()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-xl border-2 border-slate-400 text-lg shadow transition">
-                            🔄 Reset Blocks
-                        </button>
-                    </div>
+            <!-- Dialogue 3 -->
+            <div class="bg-rose-50 border-4 border-rose-300 rounded-3xl p-6 shadow-md mt-6">
+                <div class="flex items-center gap-2 mb-4 border-b-2 border-rose-200 pb-2">
+                    <span class="bg-rose-500 text-white font-bold px-3 py-1 rounded-xl text-lg">Dialogue 3</span>
+                    <span class="text-rose-800 font-bold">Asking about items inside schoolbag</span>
                 </div>
 
-                <!-- Dropzone Area -->
-                <div class="bg-white border-4 border-dashed border-orange-300 rounded-2xl p-4 min-h-[100px] flex flex-wrap items-center justify-center gap-2 mb-6 shadow-inner" id="builder-slot">
+                <div class="space-y-6">
+                    <!-- Q3 -->
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-400 border-2 border-blue-600 flex items-center justify-center text-2xl flex-shrink-0">👦</div>
+                        <div class="bg-white border-2 border-rose-300 rounded-2xl p-4 flex-1 shadow-sm">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">你</span><span class="text-xs text-rose-600">nǐ</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">的</span><span class="text-xs text-rose-600">de</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">书</span><span class="text-xs text-rose-600">shū</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">包</span><span class="text-xs text-rose-600">bāo</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">里</span><span class="text-xs text-rose-600">lǐ</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">有</span><span class="text-xs text-rose-600">yǒu</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">什</span><span class="text-xs text-rose-600">shén</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">么</span><span class="text-xs text-rose-600">me</span></div>
+                                <span class="text-2xl font-bold">？</span>
+                            </div>
+                            <p class="text-lg font-bold text-rose-700">What is inside your schoolbag?</p>
+                            <button onclick="playMandarin('你的书包里有什么')" class="mt-2 text-sm bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold px-3 py-1 rounded-xl border border-rose-400 transition">🔊 Speak</button>
+                        </div>
+                    </div>
+
+                    <!-- A3 -->
+                    <div class="flex items-start gap-4 flex-row-reverse">
+                        <div class="w-12 h-12 rounded-full bg-pink-400 border-2 border-pink-600 flex items-center justify-center text-2xl flex-shrink-0">👧</div>
+                        <div class="bg-white border-2 border-rose-300 rounded-2xl p-4 flex-1 shadow-sm text-right">
+                            <div class="flex flex-wrap items-center justify-end gap-2 mb-2">
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">我</span><span class="text-xs text-rose-600">wǒ</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">的</span><span class="text-xs text-rose-600">de</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">书</span><span class="text-xs text-rose-600">shū</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">包</span><span class="text-xs text-rose-600">bāo</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">里</span><span class="text-xs text-rose-600">lǐ</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">有</span><span class="text-xs text-rose-600">yǒu</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">中</span><span class="text-xs text-rose-600">zhōng</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">文</span><span class="text-xs text-rose-600">wén</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">课</span><span class="text-xs text-rose-600">kè</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">本</span><span class="text-xs text-rose-600">běn</span></div>
+                                <span class="text-2xl font-bold">。</span>
+                            </div>
+                            <p class="text-lg font-bold text-rose-700">There is a Chinese textbook in my schoolbag.</p>
+                            <button onclick="playMandarin('我的书包里有中文课本')" class="mt-2 text-sm bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold px-3 py-1 rounded-xl border border-rose-400 transition">🔊 Speak</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dialogue 4 -->
+            <div class="bg-rose-50 border-4 border-rose-300 rounded-3xl p-6 shadow-md mt-6">
+                <div class="flex items-center gap-2 mb-4 border-b-2 border-rose-200 pb-2">
+                    <span class="bg-rose-500 text-white font-bold px-3 py-1 rounded-xl text-lg">Dialogue 4</span>
+                    <span class="text-rose-800 font-bold">Asking & Telling quantity of desks (Interactive Picker)</span>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q4 -->
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-400 border-2 border-blue-600 flex items-center justify-center text-2xl flex-shrink-0">👦</div>
+                        <div class="bg-white border-2 border-rose-300 rounded-2xl p-4 flex-1 shadow-sm">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">我</span><span class="text-xs text-rose-600">wǒ</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">们</span><span class="text-xs text-rose-600">men</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">教</span><span class="text-xs text-rose-600">jiào</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">室</span><span class="text-xs text-rose-600">shì</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">有</span><span class="text-xs text-rose-600">yǒu</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">几</span><span class="text-xs text-rose-600">jǐ</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">个</span><span class="text-xs text-rose-600">gè</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">桌</span><span class="text-xs text-rose-600">zhuō</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">子</span><span class="text-xs text-rose-600">zi</span></div>
+                                <span class="text-2xl font-bold">？</span>
+                            </div>
+                            <p class="text-lg font-bold text-rose-700">How many desks are in our classroom?</p>
+                            <button onclick="playMandarin('我们教室有几个桌子')" class="mt-2 text-sm bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold px-3 py-1 rounded-xl border border-rose-400 transition">🔊 Speak</button>
+                        </div>
+                    </div>
+
+                    <!-- A4 (Interactive Number Picker) -->
+                    <div class="flex items-start gap-4 flex-row-reverse">
+                        <div class="w-12 h-12 rounded-full bg-pink-400 border-2 border-pink-600 flex items-center justify-center text-2xl flex-shrink-0">👧</div>
+                        <div class="bg-white border-2 border-rose-300 rounded-2xl p-4 flex-1 shadow-sm text-right">
+                            
+                            <!-- Interactive Number Selector Controls -->
+                            <div class="bg-amber-100 border-2 border-amber-400 rounded-2xl p-3 mb-4 flex flex-wrap items-center justify-between gap-3 text-left">
+                                <span class="font-extrabold text-amber-950 text-base">🔢 Pick Desk Quantity (选择数量):</span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="changeDialogue4Number(-1)" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-black px-3 py-1 rounded-xl border-2 border-amber-600 text-lg active:scale-95 transition">-</button>
+                                    <select id="dialog4-num-select" onchange="onDialogue4SelectChange(this.value)" class="bg-white font-extrabold text-amber-950 px-3 py-1 rounded-xl border-2 border-amber-400 text-lg cursor-pointer">
+                                        <!-- Populated dynamically 1-50 -->
+                                    </select>
+                                    <button onclick="changeDialogue4Number(1)" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-black px-3 py-1 rounded-xl border-2 border-amber-600 text-lg active:scale-95 transition">+</button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap items-center justify-end gap-2 mb-2">
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">我</span><span class="text-xs text-rose-600">wǒ</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">们</span><span class="text-xs text-rose-600">men</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">教</span><span class="text-xs text-rose-600">jiào</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">室</span><span class="text-xs text-rose-600">shì</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">有</span><span class="text-xs text-rose-600">yǒu</span></div>
+                                
+                                <!-- Dynamic Selected Number Stack -->
+                                <div class="flex flex-col items-center bg-amber-200 border-2 border-amber-500 px-2 rounded-xl shadow-inner">
+                                    <span class="text-2xl font-black text-amber-950 hanzi-text" id="dialog4-num-hanzi">二十二</span>
+                                    <span class="text-xs font-bold text-amber-800" id="dialog4-num-pinyin">èr shí èr</span>
+                                </div>
+
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">个</span><span class="text-xs text-rose-600">gè</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">桌</span><span class="text-xs text-rose-600">zhuō</span></div>
+                                <div class="flex flex-col items-center"><span class="text-2xl font-bold hanzi-text">子</span><span class="text-xs text-rose-600">zi</span></div>
+                                <span class="text-2xl font-bold">。</span>
+                            </div>
+
+                            <p class="text-lg font-bold text-rose-700">
+                                There are <span id="dialog4-num-english" class="underline text-amber-900 font-extrabold">22</span> desks in our classroom.
+                            </p>
+                            <button id="dialog4-speak-btn" onclick="playDialogue4Sentence()" class="mt-2 text-sm bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold px-3 py-1 rounded-xl border border-rose-400 transition">🔊 Speak</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Sentence Game / Builder Page -->
+        <section id="page-builder" class="tab-content hidden">
+            <div class="bg-orange-100 border-4 border-orange-400 rounded-3xl p-6 shadow-md mb-6">
+                <h2 class="text-3xl font-extrabold text-orange-900 mb-2 flex items-center gap-2">
+                    <span>🧩</span> Sentence Game
+                </h2>
+                <p class="text-slate-700 font-semibold text-lg">Rearrange the word tiles in the correct order to build the sentence!</p>
+            </div>
+
+            <div class="bg-orange-50 border-4 border-orange-300 rounded-3xl p-6 sm:p-8 shadow-md text-center">
+                <p class="text-lg font-bold text-orange-800 mb-2">Target Sentence:</p>
+                <p class="text-2xl font-extrabold text-amber-950 mb-1">"There is a whiteboard in our classroom."</p>
+                <button onclick="playSentenceHint()" class="mb-6 bg-orange-200 hover:bg-orange-300 text-orange-950 font-bold px-4 py-2 rounded-xl border-2 border-orange-400 transition inline-flex items-center gap-2">
+                    🔊 Listen to Sentence Hint
+                </button>
+
+                <!-- Sentence Slot Area -->
+                <div id="builder-slot" class="min-h-[70px] bg-white border-4 border-dashed border-orange-300 rounded-2xl p-3 mb-6 flex flex-wrap items-center justify-center gap-2 shadow-inner">
                     <span class="text-slate-400 font-bold text-lg select-none" id="builder-placeholder">Tap tiles below to build the sentence here...</span>
                 </div>
 
-                <!-- Tile Selector -->
-                <div class="text-center mb-3 font-bold text-orange-900 text-lg">Available Word Tiles:</div>
-                <div class="flex flex-wrap justify-center gap-3" id="builder-tiles-container">
-                    <!-- Tiles injected here -->
+                <!-- Feedback Banner -->
+                <div id="builder-feedback" class="mb-6 font-extrabold text-xl"></div>
+
+                <!-- Tile Options Container -->
+                <div id="builder-tiles-container" class="flex flex-wrap justify-center gap-3 mb-6">
+                    <!-- Dynamic word tiles inserted here -->
                 </div>
 
-                <!-- Feedback Area -->
-                <div id="builder-feedback" class="mt-6 text-center text-2xl font-bold min-h-[40px]"></div>
+                <div class="flex justify-center gap-4">
+                    <button onclick="resetSentenceBuilder()" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-extrabold px-5 py-3 rounded-2xl border-4 border-amber-600 shadow transition text-lg">
+                        🔄 Reset Game
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -590,6 +714,113 @@
                     <line x1="40" y1="55" x2="70" y2="55" stroke="#fff" stroke-width="3"/>
                     <line x1="40" y1="65" x2="65" y2="65" stroke="#fff" stroke-width="3"/>
                 </svg>`
+            },
+            {
+                id: 'friend',
+                english: 'Friend',
+                audioText: '朋友',
+                chars: [
+                    { hanzi: '朋', pinyin: 'péng' },
+                    { hanzi: '友', pinyin: 'you' }
+                ],
+                border: 'border-amber-500',
+                bg: 'bg-amber-100',
+                headerBg: 'bg-amber-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="35" cy="35" r="16" fill="#fbcfe8" stroke="#be185d" stroke-width="3"/>
+                    <circle cx="65" cy="35" r="16" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="3"/>
+                    <path d="M20 75 C20 55, 50 55, 50 75" fill="#f472b6" stroke="#be185d" stroke-width="3"/>
+                    <path d="M50 75 C50 55, 80 55, 80 75" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/>
+                </svg>`
+            },
+            {
+                id: 'classmate',
+                english: 'Classmate',
+                audioText: '同学',
+                chars: [
+                    { hanzi: '同', pinyin: 'tóng' },
+                    { hanzi: '学', pinyin: 'xué' }
+                ],
+                border: 'border-orange-500',
+                bg: 'bg-orange-100',
+                headerBg: 'bg-orange-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="50" cy="35" r="18" fill="#fef08a" stroke="#ca8a04" stroke-width="3"/>
+                    <polygon points="50,12 25,26 75,26" fill="#3b82f6"/>
+                    <path d="M28 80 C28 60, 72 60, 72 80" fill="#fb923c" stroke="#c2410c" stroke-width="3"/>
+                </svg>`
+            },
+            {
+                id: 'we',
+                english: 'We / Us',
+                audioText: '我们',
+                chars: [
+                    { hanzi: '我', pinyin: 'wǒ' },
+                    { hanzi: '们', pinyin: 'men' }
+                ],
+                border: 'border-purple-500',
+                bg: 'bg-purple-100',
+                headerBg: 'bg-purple-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="30" cy="40" r="14" fill="#a7f3d0" stroke="#047857" stroke-width="3"/>
+                    <circle cx="70" cy="40" r="14" fill="#fef08a" stroke="#ca8a04" stroke-width="3"/>
+                    <path d="M15 80 C15 62, 45 62, 45 80" fill="#34d399" stroke="#047857" stroke-width="3"/>
+                    <path d="M55 80 C55 62, 85 62, 85 80" fill="#facc15" stroke="#ca8a04" stroke-width="3"/>
+                </svg>`
+            },
+            {
+                id: 'you_plural',
+                english: 'You (plural)',
+                audioText: '你们',
+                chars: [
+                    { hanzi: '你', pinyin: 'nǐ' },
+                    { hanzi: '们', pinyin: 'men' }
+                ],
+                border: 'border-indigo-500',
+                bg: 'bg-indigo-100',
+                headerBg: 'bg-indigo-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="32" cy="38" r="14" fill="#bae6fd" stroke="#0284c7" stroke-width="3"/>
+                    <circle cx="68" cy="38" r="14" fill="#bae6fd" stroke="#0284c7" stroke-width="3"/>
+                    <path d="M18 78 C18 60, 46 60, 46 78" fill="#38bdf8" stroke="#0284c7" stroke-width="3"/>
+                    <path d="M54 78 C54 60, 82 60, 82 78" fill="#38bdf8" stroke="#0284c7" stroke-width="3"/>
+                </svg>`
+            },
+            {
+                id: 'they_male',
+                english: 'They / Them',
+                audioText: '他们',
+                chars: [
+                    { hanzi: '他', pinyin: 'tā' },
+                    { hanzi: '们', pinyin: 'men' }
+                ],
+                border: 'border-blue-500',
+                bg: 'bg-blue-100',
+                headerBg: 'bg-blue-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="32" cy="38" r="14" fill="#93c5fd" stroke="#1d4ed8" stroke-width="3"/>
+                    <circle cx="68" cy="38" r="14" fill="#93c5fd" stroke="#1d4ed8" stroke-width="3"/>
+                    <path d="M18 78 C18 60, 46 60, 46 78" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/>
+                    <path d="M54 78 C54 60, 82 60, 82 78" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/>
+                </svg>`
+            },
+            {
+                id: 'they_female',
+                english: 'They / Them (female)',
+                audioText: '她们',
+                chars: [
+                    { hanzi: '她', pinyin: 'tā' },
+                    { hanzi: '们', pinyin: 'men' }
+                ],
+                border: 'border-pink-500',
+                bg: 'bg-pink-100',
+                headerBg: 'bg-pink-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="32" cy="38" r="14" fill="#fbcfe8" stroke="#be185d" stroke-width="3"/>
+                    <circle cx="68" cy="38" r="14" fill="#fbcfe8" stroke="#be185d" stroke-width="3"/>
+                    <path d="M18 78 C18 60, 46 60, 46 78" fill="#f472b6" stroke="#be185d" stroke-width="3"/>
+                    <path d="M54 78 C54 60, 82 60, 82 78" fill="#f472b6" stroke="#be185d" stroke-width="3"/>
+                </svg>`
             }
         ];
 
@@ -650,26 +881,21 @@
                 </svg>`
             },
             {
-                id: 'bookshelf',
-                english: 'Bookshelf',
-                audioText: '书架',
+                id: 'chair',
+                english: 'Chair',
+                audioText: '椅子',
                 chars: [
-                    { hanzi: '书', pinyin: 'shū' },
-                    { hanzi: '架', pinyin: 'jià' }
+                    { hanzi: '椅', pinyin: 'yǐ' },
+                    { hanzi: '子', pinyin: 'zi' }
                 ],
-                border: 'border-rose-500',
-                bg: 'bg-rose-100',
-                headerBg: 'bg-rose-200',
+                border: 'border-orange-500',
+                bg: 'bg-orange-100',
+                headerBg: 'bg-orange-200',
                 svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
-                    <rect x="20" y="15" width="60" height="70" fill="#f43f5e" rx="4" stroke="#9f1239" stroke-width="3"/>
-                    <line x1="20" y1="40" x2="80" y2="40" stroke="#9f1239" stroke-width="3"/>
-                    <line x1="20" y1="65" x2="80" y2="65" stroke="#9f1239" stroke-width="3"/>
-                    <!-- Books -->
-                    <rect x="25" y="22" width="8" height="18" fill="#38bdf8"/>
-                    <rect x="35" y="20" width="10" height="20" fill="#facc15"/>
-                    <rect x="47" y="24" width="7" height="16" fill="#4ade80"/>
-                    <rect x="25" y="47" width="12" height="18" fill="#a855f7"/>
-                    <rect x="39" y="45" width="9" height="20" fill="#38bdf8"/>
+                    <rect x="30" y="15" width="40" height="30" fill="#fb923c" rx="3" stroke="#c2410c" stroke-width="3"/>
+                    <rect x="25" y="45" width="50" height="10" fill="#f97316" rx="2" stroke="#c2410c" stroke-width="3"/>
+                    <line x1="30" y1="55" x2="30" y2="85" stroke="#c2410c" stroke-width="4"/>
+                    <line x1="70" y1="55" x2="70" y2="85" stroke="#c2410c" stroke-width="4"/>
                 </svg>`
             },
             {
@@ -691,21 +917,98 @@
                 </svg>`
             },
             {
-                id: 'chair',
-                english: 'Chair',
-                audioText: '椅子',
+                id: 'bookshelf',
+                english: 'Bookshelf',
+                audioText: '书架',
                 chars: [
-                    { hanzi: '椅', pinyin: 'yǐ' },
-                    { hanzi: '子', pinyin: 'zi' }
+                    { hanzi: '书', pinyin: 'shū' },
+                    { hanzi: '架', pinyin: 'jià' }
                 ],
-                border: 'border-orange-500',
-                bg: 'bg-orange-100',
-                headerBg: 'bg-orange-200',
+                border: 'border-rose-500',
+                bg: 'bg-rose-100',
+                headerBg: 'bg-rose-200',
                 svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
-                    <rect x="30" y="15" width="40" height="30" fill="#fb923c" rx="3" stroke="#c2410c" stroke-width="3"/>
-                    <rect x="25" y="45" width="50" height="10" fill="#f97316" rx="2" stroke="#c2410c" stroke-width="3"/>
-                    <line x1="30" y1="55" x2="30" y2="85" stroke="#c2410c" stroke-width="4"/>
-                    <line x1="70" y1="55" x2="70" y2="85" stroke="#c2410c" stroke-width="4"/>
+                    <rect x="20" y="15" width="60" height="70" fill="#f43f5e" rx="4" stroke="#9f1239" stroke-width="3"/>
+                    <line x1="20" y1="40" x2="80" y2="40" stroke="#9f1239" stroke-width="3"/>
+                    <line x1="20" y1="65" x2="80" y2="65" stroke="#9f1239" stroke-width="3"/>
+                    <rect x="25" y="22" width="8" height="18" fill="#38bdf8"/>
+                    <rect x="35" y="20" width="10" height="20" fill="#facc15"/>
+                    <rect x="47" y="24" width="7" height="16" fill="#4ade80"/>
+                    <rect x="25" y="47" width="12" height="18" fill="#a855f7"/>
+                    <rect x="39" y="45" width="9" height="20" fill="#38bdf8"/>
+                </svg>`
+            },
+            {
+                id: 'schoolbag',
+                english: 'Schoolbag',
+                audioText: '书包',
+                chars: [
+                    { hanzi: '书', pinyin: 'shū' },
+                    { hanzi: '包', pinyin: 'bāo' }
+                ],
+                border: 'border-pink-500',
+                bg: 'bg-pink-100',
+                headerBg: 'bg-pink-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <path d="M35 30 C35 15, 65 15, 65 30" fill="none" stroke="#be123c" stroke-width="5" stroke-linecap="round"/>
+                    <rect x="22" y="30" width="56" height="55" rx="10" fill="#e11d48" stroke="#9f1239" stroke-width="3"/>
+                    <rect x="28" y="52" width="44" height="25" rx="5" fill="#fda4af" stroke="#be123c" stroke-width="2"/>
+                    <circle cx="50" cy="42" r="4" fill="#fef08a"/>
+                    <rect x="46" y="60" width="8" height="10" rx="2" fill="#9f1239"/>
+                </svg>`
+            },
+            {
+                id: 'pencil',
+                english: 'Pencil',
+                audioText: '铅笔',
+                chars: [
+                    { hanzi: '铅', pinyin: 'qiān' },
+                    { hanzi: '笔', pinyin: 'bǐ' }
+                ],
+                border: 'border-yellow-500',
+                bg: 'bg-yellow-100',
+                headerBg: 'bg-yellow-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <polygon points="20,80 30,70 20,60" fill="#fbcfe8" stroke="#be185d" stroke-width="2"/>
+                    <polygon points="30,70 75,25 85,35 40,80" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
+                    <polygon points="20,80 25,85 30,80 20,70" fill="#1e293b"/>
+                    <rect x="75" y="15" width="12" height="14" rx="2" fill="#f43f5e" transform="rotate(-45 81 22)" stroke="#be123c" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'eraser',
+                english: 'Eraser',
+                audioText: '橡皮',
+                chars: [
+                    { hanzi: '橡', pinyin: 'xiàng' },
+                    { hanzi: '皮', pinyin: 'pí' }
+                ],
+                border: 'border-sky-500',
+                bg: 'bg-sky-100',
+                headerBg: 'bg-sky-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <path d="M25 45 L65 20 L85 40 L45 65 Z" fill="#38bdf8" stroke="#0284c7" stroke-width="3"/>
+                    <path d="M45 65 L85 40 L75 75 L35 85 Z" fill="#f43f5e" stroke="#be123c" stroke-width="3"/>
+                    <path d="M25 45 L45 65 L35 85 L15 65 Z" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+                </svg>`
+            },
+            {
+                id: 'scissors',
+                english: 'Scissors',
+                audioText: '剪刀',
+                chars: [
+                    { hanzi: '剪', pinyin: 'jiǎn' },
+                    { hanzi: '刀', pinyin: 'dāo' }
+                ],
+                border: 'border-emerald-500',
+                bg: 'bg-emerald-100',
+                headerBg: 'bg-emerald-200',
+                svg: `<svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="30" cy="75" r="14" fill="none" stroke="#e11d48" stroke-width="6"/>
+                    <circle cx="70" cy="75" r="14" fill="none" stroke="#e11d48" stroke-width="6"/>
+                    <path d="M32 62 L68 20" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M68 62 L32 20" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="50" cy="41" r="4" fill="#0f172a"/>
                 </svg>`
             }
         ];
@@ -771,6 +1074,8 @@
             const tilesContainer = document.getElementById('builder-tiles-container');
             const slot = document.getElementById('builder-slot');
             const feedback = document.getElementById('builder-feedback');
+
+            if (!tilesContainer || !slot || !feedback) return;
 
             feedback.innerHTML = '';
             slot.innerHTML = '<span class="text-slate-400 font-bold text-lg select-none" id="builder-placeholder">Tap tiles below to build the sentence here...</span>';
@@ -1193,10 +1498,85 @@
         }
 
         // Initialize on page load
+        let dialogue4CurrentNum = 22;
+
+        function numberToChinese(num) {
+            const hanziDigits = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+            const pinyinDigits = ['líng', 'yī', 'èr', 'sān', 'sì', 'wǔ', 'liù', 'qī', 'bā', 'jiǔ'];
+
+            if (num < 10) {
+                return { hanzi: hanziDigits[num], pinyin: pinyinDigits[num] };
+            } else if (num < 20) {
+                if (num === 10) return { hanzi: '十', pinyin: 'shí' };
+                return { 
+                    hanzi: '十' + hanziDigits[num % 10], 
+                    pinyin: 'shí ' + pinyinDigits[num % 10] 
+                };
+            } else {
+                const tens = Math.floor(num / 10);
+                const ones = num % 10;
+                if (ones === 0) {
+                    return {
+                        hanzi: hanziDigits[tens] + '十',
+                        pinyin: pinyinDigits[tens] + ' shí'
+                    };
+                }
+                return {
+                    hanzi: hanziDigits[tens] + '十' + hanziDigits[ones],
+                    pinyin: pinyinDigits[tens] + ' shí ' + pinyinDigits[ones]
+                };
+            }
+        }
+
+        function initDialogue4Picker() {
+            const selectEl = document.getElementById('dialog4-num-select');
+            if (!selectEl) return;
+            selectEl.innerHTML = '';
+            for (let i = 1; i <= 50; i++) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.innerText = i;
+                if (i === 22) opt.selected = true;
+                selectEl.appendChild(opt);
+            }
+            updateDialogue4Display(22);
+        }
+
+        function changeDialogue4Number(delta) {
+            let nextVal = dialogue4CurrentNum + delta;
+            if (nextVal < 1) nextVal = 1;
+            if (nextVal > 50) nextVal = 50;
+            onDialogue4SelectChange(nextVal);
+        }
+
+        function onDialogue4SelectChange(val) {
+            dialogue4CurrentNum = parseInt(val, 10);
+            const selectEl = document.getElementById('dialog4-num-select');
+            if (selectEl) selectEl.value = dialogue4CurrentNum;
+            updateDialogue4Display(dialogue4CurrentNum);
+        }
+
+        function updateDialogue4Display(num) {
+            const cn = numberToChinese(num);
+            const hanziEl = document.getElementById('dialog4-num-hanzi');
+            const pinyinEl = document.getElementById('dialog4-num-pinyin');
+            const englishEl = document.getElementById('dialog4-num-english');
+
+            if (hanziEl) hanziEl.innerText = cn.hanzi;
+            if (pinyinEl) pinyinEl.innerText = cn.pinyin;
+            if (englishEl) englishEl.innerText = num;
+        }
+
+        function playDialogue4Sentence() {
+            const cn = numberToChinese(dialogue4CurrentNum);
+            playMandarin(`我们教室有${cn.hanzi}个桌子`);
+        }
+
         window.onload = function() {
             renderCards(schoolVocab, 'school-cards-grid');
             renderCards(classVocab, 'class-cards-grid');
             initSentenceBuilder();
+            initDialogue4Picker();
             loadQuestion();
         };
     </script>
